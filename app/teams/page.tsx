@@ -4,19 +4,22 @@ import { TournamentWeekend, Tournament } from '../lib/definitions';
 
 const Page: React.FC = () => {
   const tournamentWeekends: TournamentWeekend[] = [
-    { name: 'Tempe', startDate: new Date('2024-02-10'), endDate: new Date('2024-02-11') },
-    { name: 'NJ/Philly', startDate: new Date('2024-03-09'), endDate: new Date('2024-03-10') },
-    { name: 'Atlanta', startDate: new Date('2024-05-04'), endDate: new Date('2024-05-05') },
-    { name: 'Austin', startDate: new Date('2024-05-25'), endDate: new Date('2024-05-26') },
-    { name: 'San Diego', startDate: new Date('2024-07-06'), endDate: new Date('2024-07-07') },
-    { name: 'Chicago', startDate: new Date('2024-09-07'), endDate: new Date('2024-09-08') },
-    { name: 'KC (Nationals)', startDate: new Date('2024-10-18'), endDate: new Date('2024-10-20') },
+    { name: 'Tempe', startDate: new Date('2024-02-11'), endDate: new Date('2024-02-12') },
+    { name: 'NJ/Philly', startDate: new Date('2024-03-10'), endDate: new Date('2024-03-11') },
+    { name: 'Atlanta', startDate: new Date('2024-05-05'), endDate: new Date('2024-05-06') },
+    { name: 'Austin', startDate: new Date('2024-05-26'), endDate: new Date('2024-05-27') },
+    { name: 'San Diego', startDate: new Date('2024-07-07'), endDate: new Date('2024-07-08') },
+    { name: 'Chicago', startDate: new Date('2024-09-08'), endDate: new Date('2024-09-09') },
+    { name: 'KC (Nationals)', startDate: new Date('2024-10-19'), endDate: new Date('2024-10-21') },
   ];
 
   const tournaments =[
-    {name: 'Tempe', gender:'Mixed', ballType: "foam", rosterRegistered: ['Garrett', 'Jess', 'Yiwei', 'Dave', 'Jackie', 'Guy Alex', 'Dave Roy']},
+    {name: 'Tempe', gender:'Mixed', ballType: "foam", roster: { 'Garrett': 'registered', 'Jess': 'registered', 'Yiwei': 'registered', 'Dave': 'registered', 'Jackie': 'registered', 'Guy Alex': 'registered', 'Dave Roy': 'registered' }},
     {name: 'Tempe', gender: 'Open', ballType: "foam"},
     {name: 'Tempe', gender: 'Open', ballType: "cloth"},
+    {name: 'NJ/Philly', gender: 'Mixed', ballType: "foam"},
+    {name: 'NJ/Philly', gender: 'Open', ballType: "foam"},
+    {name: 'NJ/Philly', gender: 'Open', ballType: "cloth"},
   ]
 
   function tournamentHeader(tournament: TournamentWeekend) {
@@ -36,15 +39,17 @@ const Page: React.FC = () => {
     const tourneyRosters: Tournament[] = tournaments.filter(roster => roster.name === tournament.name);
     const rosterSectionsJSX = tourneyRosters.map((tourney) => {
       const rowHeader = <h3>{tourney.gender} {tourney.ballType}</h3>;
+      const registeredPlayers = Object.entries(tourney.roster || {}).filter(([_, status]) => status === 'registered');
+      const registeredPlayersJSX = registeredPlayers.map(([playerName]) => (
+        <li key={playerName}>{playerName}</li>
+      ));
       const rowJSX = (
         <div>
-          {tourney.rosterRegistered && tourney.rosterRegistered.length > 0 && (
+          {registeredPlayers.length > 0 && (
             <div>
               <h4>Registered Players</h4>
               <ul>
-                {tourney.rosterRegistered.map((player) => (
-                  <li>{player}</li>
-                ))}
+                {registeredPlayersJSX}
               </ul>
             </div>
           )}
@@ -78,3 +83,4 @@ const Page: React.FC = () => {
 };
 
 export default Page;
+        
