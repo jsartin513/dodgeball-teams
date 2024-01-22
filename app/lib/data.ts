@@ -19,3 +19,13 @@ export const tournaments =[
   {name: 'NJ/Philly', gender: 'Open', ballType: "cloth"},
 ]
 
+export const players = [
+  { name: 'Garrett', gender: 'Male', number: "34" },
+  { name: 'Jon', gender: 'Male', number: "2" },
+  { name: 'Jess', gender: 'Female', number: "00" },
+  { name: 'Yiwei', gender: 'Female', number: '14'},
+  { name: 'Abby', gender: 'Female', number: '24'},
+  { name: 'Dave', gender: 'Male'},
+  { name: 'Pofo', gender: 'Male', number: '57', type: "guest"},
+
+];
